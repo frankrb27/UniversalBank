@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+<f:event type="preRenderView" listener="#{productoBean.controlAcceso}" />
+	<h:form id="form7">
+		<p:outputLabel value="Registrar Producto"></p:outputLabel>
+		<p:separator></p:separator>
+		<h:panelGrid columns="8">
+
+			<p:outputLabel value="Codigo" for="codigo"></p:outputLabel>
+			<p:inputText id="codigo"
+				value="#{productoBean.producto.codigoProducto}"></p:inputText>
+
+			<p:outputLabel value="Descripcion" for="desc"></p:outputLabel>
+			<p:inputText id="desc"
+				value="#{productoBean.producto.descripcionProducto}"></p:inputText>
+
+			<p:outputLabel value="Marca" for="marca"></p:outputLabel>
+			<p:inputText id="marca"
+				value="#{productoBean.producto.marcaProducto}"></p:inputText>
+
+			<p:outputLabel value="Tipo" for="tipo"></p:outputLabel>
+			<p:inputText id="tipo" value="#{productoBean.producto.tipoProducto}"></p:inputText>
+
+			<p:commandButton value="Registrar"
+				actionListener="#{productoBean.registra}"
+				update=":form6:product :form6:panel"></p:commandButton>
+
+		</h:panelGrid>
+		<p:messages id="mensajes" showDetail="true" autoUpdate="true"
+			closable="true" styleClass="textFont" />
+	</h:form>
+	<p:separator></p:separator>
+	<h:form id="form6">
+		<p:panel header="Productos Registrados" id="panel">
+			<center>
+				<p:dataTable id="product"
+					emptyMessage="No hay productos registrados!" var="producto"
+					value="#{productoBean.productos}" styleClass="textFont"
+					tableStyleClass="table table-striped" editable="true"
+					style="margin-bottom:20px; width:80%" rows="10" paginator="true"
+					rowsPerPageTemplate="5,10,15">
+
+					<p:column headerText="Codigo">
+						<p:outputLabel id="cod" value="#{producto.codigoProducto}"
+							style="width:100%" styleClass="textFontTable" />
+					</p:column>
+
+					<p:column headerText="Descripcion">
+						<p:outputLabel id="desc" value="#{producto.descripcionProducto}"
+							style="width:100%" styleClass="textFontTable" />
+					</p:column>
+
+					<p:column headerText="Marca">
+						<p:outputLabel id="marca" value="#{producto.marcaProducto}"
+							style="width:100%" styleClass="textFontTable" />
+					</p:column>
+
+					<p:column headerText="Tipo Producto">
+						<p:outputLabel id="tipoP" value="#{producto.tipoProducto}"
+							style="width:100%" styleClass="textFontTable" />
+					</p:column>
+				</p:dataTable>
+			</center>
+		</p:panel>
+	</h:form>
+</h:body>
+
+</html>

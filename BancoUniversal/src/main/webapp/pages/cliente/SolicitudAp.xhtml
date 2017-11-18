@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+	<f:event type="preRenderView"
+		listener="#{solicitudApBean.controlAcceso}" />
+	<h:form id="form4">
+		<h:panelGrid columns="8">
+			<p:selectOneMenu id="producto"
+				value="#{solicitudApBean.producto.idProducto}" style="width:125px">
+				<f:selectItem itemLabel="Selecciona el Producto" itemValue="" />
+				<f:selectItems value="#{solicitudApBean.productos}" var="product"
+					itemLabel="#{product}" itemValue="#{product}" />
+				<p:ajax listener="#{solicitudApBean.changePr}" global="false" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="cant" value="Cantidad"></p:outputLabel>
+			<p:inputText id="cant" value="#{solicitudApBean.producto.cantidad}"></p:inputText>
+
+			<p:outputLabel for="observ" value="Observaciones"></p:outputLabel>
+			<p:inputText id="observ" value="#{solicitudApBean.producto.observaciones}"></p:inputText>
+
+
+			<p:commandButton value="Ingresar"
+				update=":form5:product :form5:panel"
+				actionListener="#{solicitudApBean.agregarSolicitud}"></p:commandButton>
+
+
+		</h:panelGrid>
+		<p:messages id="mensajes" showDetail="true" autoUpdate="true"
+			closable="true" styleClass="textFont" />
+	</h:form>
+	<p:separator></p:separator>
+	<h:form id="form5">
+	<p:messages id="mensajes" showDetail="true" autoUpdate="true"
+					closable="true" styleClass="textFont" />
+		<p:panel header="Solicitud" id="panel">
+			<p:dataTable id="product" emptyMessage="Ingresa Productos a Cotizar!"
+				var="producto" value="#{solicitudApBean.addProductoList}"
+				styleClass="textFont" tableStyleClass="table table-striped"
+				editable="true" style="margin-bottom:20px; width:80%">
+
+				<p:column headerText="Descripcion">
+					<p:outputLabel id="desc" value="#{producto.descripcionProducto}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Marca">
+					<p:outputLabel id="marca" value="#{producto.marcaProducto}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Cantidad">
+					<p:outputLabel id="cantidad" value="#{producto.cantidad}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Observaciones">
+					<p:outputLabel id="observaciones" value="#{producto.observaciones}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="Crear Solicitud" update="mensajes"
+				actionListener="#{solicitudApBean.crearSolicitud}"></p:commandButton>
+		</p:panel>
+	</h:form>
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+
+<h:body>
+	<f:event type="preRenderView" listener="#{taskBean.controlAcceso}" />
+	<p:panel header="Solicitudes por gestionar" styleClass="panel1"
+		style="margin-bottom:20px;border:none" id="panel1">
+		<!-- 	Casos creados -->
+		<h:form id="form1" enctype="multipart/form-data">
+
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				onShow="PF('statusDialog').initPosition()" closable="false"
+				resizable="false" showHeader="false">
+				<img src="../../imagenes/cargando.gif" width="50px" height="50px"></img>
+			</p:dialog>
+			<p:growl id="msgs" showDetail="true" />
+			<center>
+				<p:dataTable var="tarea" value="#{taskBean.listTarea}"
+					paginator="true"
+					rowsPerPageTemplate="10,15,20" rows="10" id="taskTable" widgetVar="taskTableW"
+					styleClass="textFont" tableStyleClass="table table-striped"
+					style="margin-bottom:20px; width:80%">
+					<p:ajax event="page" global="false"/>
+					<p:column headerText="Tomar / Liberar">
+						<p:column style="width:32px;text-align: center">
+							<p:commandButton icon="ui-icon-search" title="View"
+								disabled="#{tarea.displayName == 'Validar referencias' ? true : false}"
+								update=":form1:msgs :form1:taskTable panel1"
+								actionListener="#{taskBean.taskSelected}">
+								<f:attribute name="tareaSel" value="#{tarea}" />
+								<p:confirm header="Confirmar"
+									message="#{tarea.assigned_id == null ? 'Desea Tomar esta Tarea?' : tarea.assigned_id == '' ? 'Desea Tomar esta Tarea?' :'Desea Liberar esta Tarea?'}"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Yes" type="button" global="false"
+									update=":form1:msgs :form1:taskTable panel1"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button" global="false"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:column>
+					</p:column>
+					<p:column headerText="Número de solicitud">
+						<p:commandLink actionListener="#{taskBean.showCaseDialog}"
+							disabled="#{tarea.assigned_id == null ? true : tarea.assigned_id == '' ? true : false}"
+							id="imgReas" value="#{tarea.rootCaseId}"
+							update=":form1:dialogFact :form1:panelP">
+							<f:attribute name="tareaSel" value="#{tarea}" />
+						</p:commandLink>
+						<h:outputText value="" styleClass="textFontTable" />
+					</p:column>
+					<p:column headerText="Id">
+						<h:outputText value="#{tarea.id}" styleClass="textFontTable" />
+					</p:column>
+					<p:column headerText="Tarea">
+						<h:outputText value="#{tarea.displayName}"
+							styleClass="textFontTable" />
+					</p:column>
+					<p:column headerText="Prioridad">
+						<h:outputText value="#{tarea.priority}" styleClass="textFontTable" />
+					</p:column>
+					<!-- 					<p:column headerText="Fecha asignación"> -->
+					<!-- 						<h:outputText value="#{tarea.assigned_date}" id="fechaAsigna" -->
+					<!-- 							styleClass="textFontTable" /> -->
+					<!-- 					</p:column> -->
+				</p:dataTable>
+			</center>
+
+			<p:dialog header="Numero Caso: #{taskBean.selectTarea.caseId}"
+				widgetVar="formularioCasoDialog" modal="true" id="dialogFact"
+				appendTo="@(body)" position="center center"
+				onShow="PF('formularioCasoDialog').initPosition()"
+				showEffect="blind" responsive="true" hideEffect="blind" width="970"
+				resizable="false" draggable="false">
+
+				<p:panelGrid columns="1"
+					columnClasses="ui-grid-col-12,ui-grid-col-5" layout="grid"
+					id="panelP" styleClass="ui-panelgrid-blank">
+					<h:form id="ingresar">
+						<p:messages id="mensajes" showDetail="true" autoUpdate="false"
+							closable="true" styleClass="textFont" />
+						<p:tabView>
+							<p:tab title="Datos básicos">
+								<h:panelGrid columns="2">
+									<p:panel id="panelInfo1">
+										<h:panelGrid columns="2" cellpadding="10">
+											<h:outputLabel for="tipoDoc" value="Tipo documento" />
+											<h:outputLabel id="tipoDoc"
+												value="#{taskBean.selectTarea.caso.formulario.tipoDocumento}" />
+
+											<h:outputLabel for="txt_doc" value="Número documento" />
+											<h:outputLabel id="txt_doc" styleClass="textFont"
+												value="#{taskBean.selectTarea.caso.formulario.numeroDocumento}" />
+
+											<h:outputLabel for="txt_nom" value="Nombres" />
+											<h:outputLabel id="txt_nom" styleClass="textFont"
+												value="#{taskBean.selectTarea.caso.formulario.nombres}" />
+
+											<h:outputLabel for="txt_ape" value="Apellidos" />
+											<h:outputLabel id="txt_ape" styleClass="textFont"
+												value="#{taskBean.selectTarea.caso.formulario.apellidos}" />
+
+											<h:outputLabel for="txt_cor" value="Correo" />
+											<h:outputLabel id="txt_cor" styleClass="textFont"
+												value="#{taskBean.selectTarea.caso.formulario.correoElectronico}" />
+
+											<h:outputLabel for="txt_num" value="Número celular" />
+											<h:outputLabel id="txt_num" styleClass="textFont"
+												value="#{taskBean.selectTarea.caso.formulario.numeroCelular}" />
+
+											<h:outputLabel for="genero" value="Género" />
+											<h:outputLabel id="genero"
+												value="#{taskBean.selectTarea.caso.formulario.genero}" />
+
+											<h:outputLabel for="estado" value="Estado civil" />
+											<h:outputLabel id="estado"
+												value="#{taskBean.selectTarea.caso.formulario.estadoCivil}" />
+
+										</h:panelGrid>
+									</p:panel>
+									<p:panel id="panelInfo2">
+										<h:outputLabel id="mensajeRef"
+											rendered="#{taskBean.selectTarea.displayName == 'Validar respuesta de referencias' ? true : false}"
+											value="#{taskBean.selectTarea.caso.formulario.mensajeReferencias}" />
+									</p:panel>
+								</h:panelGrid>
+							</p:tab>
+							<p:tab title="Datos de la empresa">
+								<h:panelGrid columns="2" cellpadding="10">
+									<h:outputLabel for="txt_empresa" value="Empresa" />
+									<h:outputLabel id="txt_empresa" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.empresa}" />
+
+									<h:outputLabel for="sector" value="Sector" />
+									<h:outputLabel id="sector"
+										value="#{taskBean.selectTarea.caso.formulario.sector}" />
+
+									<h:outputLabel for="txt_cargo" value="Cargo" />
+									<h:outputLabel id="txt_cargo" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.cargoActual}" />
+
+									<h:outputLabel for="txt_salario" value="Salario" />
+									<h:outputLabel id="txt_salario" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.salario}" />
+
+								</h:panelGrid>
+							</p:tab>
+							<p:tab title="Datos financieros">
+								<h:panelGrid columns="2" cellpadding="10">
+									<h:outputLabel for="txt_ingresos" value="Ingresos" />
+									<h:outputLabel id="txt_ingresos" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.ingresos}" />
+
+									<h:outputLabel for="txt_egresos" value="Egresos" />
+									<h:outputLabel id="txt_egresos" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.egresos}" />
+
+									<h:outputLabel for="txt_activos" value="Activos" />
+									<h:outputLabel id="txt_activos" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.activos}" />
+
+									<h:outputLabel for="txt_pasivos" value="Pasivos" />
+									<h:outputLabel id="txt_pasivos" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.pasivos}" />
+								</h:panelGrid>
+							</p:tab>
+							<p:tab title="Datos solicitud">
+								<h:panelGrid columns="2" cellpadding="10">
+									<h:outputLabel for="tipoVivienda" value="Tipo vivienda" />
+									<h:outputLabel id="tipoVivienda"
+										value="#{taskBean.selectTarea.caso.formulario.tipoVivienda}" />
+
+									<h:outputLabel for="ubicacion" value="Ubicación" />
+									<h:outputLabel id="ubicacion"
+										value="#{taskBean.selectTarea.caso.formulario.ubicacion}" />
+
+									<h:outputLabel for="modalidad" value="Modalidad" />
+									<h:outputLabel id="modalidad"
+										value="#{taskBean.selectTarea.caso.formulario.modalidad}" />
+
+
+									<h:outputLabel for="plazo" value="Plazo" />
+									<h:outputLabel id="plazo"
+										value="#{taskBean.selectTarea.caso.formulario.plazo}" />
+
+									<h:outputLabel for="txt_monto" value="Monto solicitado" />
+									<h:outputLabel id="txt_monto" styleClass="textFont"
+										value="#{taskBean.selectTarea.caso.formulario.montoSolicitado}" />
+								</h:panelGrid>
+							</p:tab>
+						</p:tabView>
+					</h:form>
+				</p:panelGrid>
+				<center>
+					<p:commandButton value="Rechazar"
+						actionListener="#{taskBean.taskRefuse}"></p:commandButton>
+					<p:commandButton value="Continuar"
+						actionListener="#{taskBean.taskNextStep}"></p:commandButton>
+				</center>
+
+			</p:dialog>
+
+			<p:dialog
+				header="Numero Caso: #{taskBean.selectTarea.caseId} Validar"
+				widgetVar="formularioCasoDialog2" modal="true" id="dialogFact2"
+				appendTo="@(body)" position="center center"
+				onShow="PF('formularioCasoDialog2').initPosition()"
+				showEffect="blind" responsive="true" hideEffect="blind" width="970"
+				resizable="false" draggable="false">
+
+				<p:panel>
+					<p:outputLabel
+						value="La solicitud se encuentra en Validacion de referencias"></p:outputLabel>
+				</p:panel>
+			</p:dialog>
+
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

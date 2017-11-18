@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Menu Proveedor</title>
+</h:head>
+<h:body align="center">
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="100" header="AES">
+				<h:outputText value="Sistema de Aprovisionamieto de Inventarios" />
+			</p:layoutUnit>
+		
+		<p:layoutUnit position="west" size="300" header="Menu Principal"
+			resizable="true" closable="false" collapsible="true">
+			<h:form id="form1">
+				<p:growl id="messages" showDetail="false" />
+				<p:menu toggleable="true" style="width:100%">					
+					<p:submenu label="Producto">
+						<p:menuitem value="Registrar Producto"
+							actionListener="#{menuProveedor.setPage('RegistrarProducto.xhtml')}"
+							update=":form1:messages include" icon="fa fa-fw fa-cubes" />
+					</p:submenu>
+					<p:submenu label="Cotización">
+						<p:menuitem value="Registrar Cotizacion"
+							actionListener="#{menuProveedor.setPage('RegistratCotizacion.xhtml')}"
+							update=":form1:messages include" icon="fa fa-fw fa-edit" />
+					</p:submenu>
+					<p:submenu label="Cerrar Sesion">
+						<p:menuitem value="LogOut" update=":form1:messages"
+							actionListener="#{menuProveedor.logOut}" icon="fa fa-fw fa-lock" />
+					</p:submenu>
+				</p:menu>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<h:panelGroup id="include">
+				<ui:include src="#{menuProveedor.page}" />
+			</h:panelGroup>
+		</p:layoutUnit>
+
+	</p:layout>
+
+
+</h:body>
+</html>

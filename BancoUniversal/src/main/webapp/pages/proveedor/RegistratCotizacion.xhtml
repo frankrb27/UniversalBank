@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+	<h:form id="form8">
+		<p:messages id="mensajes" showDetail="true" autoUpdate="true"
+			closable="true" styleClass="textFont" />
+		<p:panel header="Solicitud" id="panel2">
+			<p:dataTable id="solicita"
+				emptyMessage="No se encuentran Solicitudes!" var="solicitud"
+				value="#{registrarCotBean.solicitudes}" styleClass="textFont"
+				tableStyleClass="table table-striped"
+				style="margin-bottom:20px; width:80%">
+
+				<p:column headerText="Solicitud">
+					<p:outputLabel id="solicitudN" value="#{solicitud.idSolicitudProd}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Usuario">
+					<p:outputLabel id="user" value="#{solicitud.usuarioSolicita}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Ver Solicitud">
+					<p:commandLink value="ver" actionListener="#{registrarCotBean.ver}"
+						update="form9">
+						<f:attribute name="Solicitud_" value="#{solicitud}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+	<p:separator></p:separator>
+
+	<h:form id="form9">
+		<p:messages id="mensajes" showDetail="true" autoUpdate="true"
+			closable="true" styleClass="textFont" />
+		<p:panel header="Solicitud #{registrarCotBean.solicitud.idSolicitud}" id="panel">
+			<p:dataTable id="product"
+				emptyMessage="No hay productos en esta Solicitud!" var="producto"
+				value="#{registrarCotBean.solicitud.productos}"
+				rendered="#{registrarCotBean.mostrar}" styleClass="textFont"
+				tableStyleClass="table table-striped" editable="true"
+				style="margin-bottom:20px; width:80%">
+
+				<p:column headerText="Descripcion">
+					<p:outputLabel id="desc" value="#{producto.descripcionProducto}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Marca">
+					<p:outputLabel id="marca" value="#{producto.marcaProducto}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Cantidad">
+					<p:outputLabel id="cantidad" value="#{producto.cantidad}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+				<p:column headerText="Observaciones">
+					<p:outputLabel id="observaciones" value="#{producto.observaciones}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+				<p:column headerText="Valor unitario">
+					<p:inputText id="costo" value="#{producto.costo}"
+						style="width:100%" styleClass="textFontTable">
+						<p:ajax event="blur" update="product" listener="#{registrarCotBean.blur}"/>
+					</p:inputText>
+				</p:column>
+				<p:column headerText="Valor Total">
+					<p:inputText id="costoT" value="#{producto.costoTotal}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="Enviar" update="mensajes form9"
+				actionListener="#{registrarCotBean.enviar}" disabled="#{registrarCotBean.disable}"></p:commandButton>
+		</p:panel>
+	</h:form>
+</h:body>
+
+</html>

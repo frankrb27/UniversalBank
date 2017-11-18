@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<script src="../../js/main.js"></script>
+	<script src="../../js/process.js"></script>
+</h:head>
+
+<h:body align="center" onload="dataSet()">
+	<p:layoutUnit position="center" style="border: none;" gutter="0">
+		<h:outputText value="Fondo Nacional de Ahorro" />
+		<br />
+		<br />
+		<h:outputText value="Interfaz de Crédito" />
+		<br />
+		<br />
+		<h:outputText value="Procesos activos" />
+
+		<p:dataTable id="example">
+<!-- 			<p:column headerText="Id"> -->
+<!-- 				<h:outputText  id="id"/> -->
+<!-- 			</p:column> -->
+
+<!-- 			<p:column headerText="Nombre" > -->
+<!-- 				<h:outputText id="nombre"/> -->
+<!-- 			</p:column> -->
+
+<!-- 			<p:column headerText="Estado" > -->
+<!-- 				<h:outputText id="estado"/> -->
+<!-- 			</p:column> -->
+
+<!-- 			<p:column headerText="Versión" > -->
+<!-- 				<h:outputText id="version"/> -->
+<!-- 			</p:column> -->
+		</p:dataTable>
+	</p:layoutUnit>
+</h:body>
+</html>

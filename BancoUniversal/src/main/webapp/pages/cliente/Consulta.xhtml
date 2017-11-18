@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel header="Consulta Cotizaciones">
+
+			<p:dataTable id="consulta"
+				emptyMessage="No se encontraron cotizaciones!" var="cotiza"
+				value="#{consultaBean.cotizaList}" styleClass="textFont"
+				tableStyleClass="table table-striped" editable="true"
+				style="margin-bottom:20px; width:80%">
+				<f:facet name="header">
+           			Cotizaciones
+       			</f:facet>
+
+				<p:column headerText="Campo1">
+					<p:inputText id="campo1" value="#{cotiza.IdSolicitudProd}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+				<p:column headerText="Campo2">
+					<p:inputText id="campo2" value="#{cotiza.IdSolicitud}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+				<p:column headerText="Campo3">
+					<p:inputText id="campo3" value="#{cotiza.IdSolicitudProd}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+				<p:column headerText="Campo4">
+					<p:inputText id="campo4" value="#{cotiza.IdSolicitudProd}"
+						style="width:100%" styleClass="textFontTable" />
+				</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+	</h:form>
+</h:body>
+
+</html>

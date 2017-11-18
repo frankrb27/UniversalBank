@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" type="text/css"
+		href="../../css/sm12/sm12put.css" media="screen" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Abel|BenchNine|Chathura|Dosis|Josefin+Sans|Pathway+Gothic+One|Yanone+Kaffeesatz"
+		rel="stylesheet" />
+
+</h:head>
+
+
+<h:body>
+
+	<h:form id="formDialog">
+		<p:panel header="Creación de solicitudes" styleClass="panel1"
+			style="margin-bottom:20px;border:none" id="panel1">
+
+			<p:commandButton icon="fa fa-fw fa-plus"
+				actionListener="#{caseBean.getSolicitudes}" />
+
+			<p:commandButton icon="fa fa-fw fa-plus"
+				onclick="PF('requestDialog').show();"></p:commandButton>
+			<p:dialog header="Crear una nueva solicitud"
+				widgetVar="requestDialog" position="center center"
+				onShow="PF('requestDialog').initPosition()" modal="false"
+				id="dialogSM12" showEffect="blind" responsive="true"
+				hideEffect="blind" width="50%" resizable="false" draggable="false"
+				styleClass="textFont">
+
+				<div class="ui-fluid" align="center">
+					<center>
+
+						<p:panelGrid columns="1"
+							columnClasses="ui-grid-col-12,ui-grid-col-5" layout="grid"
+							id="panelP" styleClass="ui-panelgrid-blank">
+							<h:form id="ingresar">
+								<p:messages id="mensajes" showDetail="true" autoUpdate="false"
+									closable="true" styleClass="textFont" />
+								<p:tabView>
+									<p:tab title="Datos básicos">
+										<h:panelGrid columns="2" cellpadding="10">
+											<h:outputLabel for="tipoDoc" value="Tipo documento" />
+											<p:selectOneMenu styleClass="textFont" id="tipoDoc"
+												value="#{caseBean.tipoDocumento}" effect="fold"
+												editable="false">
+												<f:selectItem styleClass="textFont" itemLabel=""
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listDocumentos}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="txt_doc" value="Número documento" />
+											<p:inputText id="txt_doc" styleClass="textFont"
+												value="#{caseBean.numeroDocumento}" />
+
+											<h:outputLabel for="txt_nom" value="Nombres" />
+											<p:inputText id="txt_nom" styleClass="textFont"
+												value="#{caseBean.nombres}" />
+
+											<h:outputLabel for="txt_ape" value="Apellidos" />
+											<p:inputText id="txt_ape" styleClass="textFont"
+												value="#{caseBean.apellidos}" />
+
+											<h:outputLabel for="txt_cor" value="Correo" />
+											<p:inputText id="txt_cor" styleClass="textFont"
+												value="#{caseBean.correoElectronico}" />
+
+											<h:outputLabel for="txt_num" value="Número celular" />
+											<p:inputText id="txt_num" styleClass="textFont"
+												value="#{caseBean.numeroCelular}" />
+
+											<h:outputLabel for="genero" value="Género" />
+											<p:selectOneMenu styleClass="textFont" id="genero"
+												value="#{caseBean.genero}" effect="fold" editable="false">
+												<f:selectItem styleClass="textFont" itemLabel="Seleccione"
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listGenero}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="estado" value="Estado civil" />
+											<p:selectOneMenu styleClass="textFont" id="estado"
+												value="#{caseBean.estadoCivil}" effect="fold"
+												editable="false">
+												<f:selectItem styleClass="textFont" itemLabel="Seleccione"
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listEstado}" />
+											</p:selectOneMenu>
+										</h:panelGrid>
+									</p:tab>
+									<p:tab title="Datos de la empresa">
+										<h:panelGrid columns="2" cellpadding="10">
+											<h:outputLabel for="txt_empresa" value="Empresa" />
+											<p:inputText id="txt_empresa" styleClass="textFont"
+												value="#{caseBean.empresa}">
+											</p:inputText>
+
+											<h:outputLabel for="sector" value="Sector" />
+											<p:selectOneMenu styleClass="textFont" id="sector"
+												value="#{caseBean.sector}" effect="fold" editable="false">
+												<f:selectItem styleClass="textFont" itemLabel="Seleccione"
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listSector}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="txt_cargo" value="Cargo" />
+											<p:inputText id="txt_cargo" styleClass="textFont"
+												value="#{caseBean.cargoActual}">
+											</p:inputText>
+
+											<h:outputLabel for="txt_salario" value="Salario" />
+											<p:inputText id="txt_salario" styleClass="textFont"
+												value="#{caseBean.salario}">
+											</p:inputText>
+
+										</h:panelGrid>
+									</p:tab>
+									<p:tab title="Datos financieros">
+										<h:panelGrid columns="2" cellpadding="10">
+											<h:outputLabel for="txt_ingresos" value="Ingresos" />
+											<p:inputText id="txt_ingresos" styleClass="textFont"
+												value="#{caseBean.ingresos}">
+											</p:inputText>
+
+											<h:outputLabel for="txt_egresos" value="Egresos" />
+											<p:inputText id="txt_egresos" styleClass="textFont"
+												value="#{caseBean.egresos}">
+											</p:inputText>
+
+											<h:outputLabel for="txt_activos" value="Activos" />
+											<p:inputText id="txt_activos" styleClass="textFont"
+												value="#{caseBean.activos}">
+											</p:inputText>
+
+											<h:outputLabel for="txt_pasivos" value="Pasivos" />
+											<p:inputText id="txt_pasivos" styleClass="textFont"
+												value="#{caseBean.pasivos}">
+											</p:inputText>
+										</h:panelGrid>
+									</p:tab>
+									<p:tab title="Datos solicitud">
+										<h:panelGrid columns="2" cellpadding="10">
+											<h:outputLabel for="tipoVivienda" value="Tipo vivienda" />
+											<p:selectOneMenu styleClass="textFont" id="tipoVivienda"
+												value="#{caseBean.tipoVivienda}" effect="fold"
+												editable="false">
+												<f:selectItem styleClass="textFont" itemLabel="Seleccione"
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listTipoVivienda}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="ubicacion" value="Ubicación" />
+											<p:selectOneMenu styleClass="textFont" id="ubicacion"
+												value="#{caseBean.ubicacion}" effect="fold" editable="false">
+												<f:selectItem styleClass="textFont" itemLabel="Seleccione"
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listUbicacion}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="modalidad" value="Modalidad" />
+											<p:selectOneMenu styleClass="textFont" id="modalidad"
+												value="#{caseBean.modalidad}" effect="fold" editable="false">
+												<f:selectItem styleClass="textFont" itemLabel="Seleccione"
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listModalidad}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="plazo" value="Plazo" />
+											<p:selectOneMenu styleClass="textFont" id="plazo"
+												value="#{caseBean.plazo}" effect="fold" editable="false">
+												<f:selectItem styleClass="textFont" itemLabel="Seleccione"
+													itemValue="" />
+												<f:selectItems styleClass="textFont"
+													value="#{caseBean.listPlazo}" />
+											</p:selectOneMenu>
+
+											<h:outputLabel for="txt_monto" value="Monto solicitado" />
+											<p:inputText id="txt_monto" styleClass="textFont"
+												value="#{caseBean.montoSolicitado}">
+											</p:inputText>
+										</h:panelGrid>
+									</p:tab>
+								</p:tabView>
+
+								<p:commandButton id="btn_add" value="Crear solicitud"
+									update="ingresar:mensajes"
+									actionListener="#{caseBean.createCase}" style="width: 100%">
+								</p:commandButton>
+
+								<!-- 							<p:keyFilter for="txt_num" mask="num" /> -->
+								<!-- 							<p:keyFilter for="txt_doc" mask="num" /> -->
+								<!-- 							<p:keyFilter for="txt_salario" mask="num" /> -->
+								<!-- 							<p:keyFilter for="txt_ingresos" mask="num" /> -->
+								<!-- 							<p:keyFilter for="txt_egresos" mask="num" /> -->
+								<!-- 							<p:keyFilter for="txt_activos" mask="num" /> -->
+								<!-- 							<p:keyFilter for="txt_pasivos" mask="num" /> -->
+								<!-- 							<p:keyFilter for="txt_monto" mask="num" /> -->
+
+								<!-- 							<p:keyFilter regEx="/[a-z_ ]/i" for="txt_nom" /> -->
+							</h:form>
+						</p:panelGrid>
+					</center>
+				</div>
+
+			</p:dialog>
+		</p:panel>
+	</h:form>
+
+	<!-- 	Casos creados -->
+	<h:form id="form1" enctype="multipart/form-data">
+		<p:growl id="msgs" />
+		<p:outputPanel id="casos">
+			<center>
+				<p:dataTable var="casos" value="#{caseBean.listCasos}"
+					styleClass="textFont" tableStyleClass="table table-striped"
+					style="margin-bottom:20px; width:80%">
+					<p:column headerText="Id">
+						<h:outputText value="#{casos.id}" styleClass="textFontTable" />
+					</p:column>
+					<p:column headerText="Fecha de radicación">
+						<h:outputText value="#{casos.start}" styleClass="textFontTable" />
+					</p:column>
+				</p:dataTable>
+			</center>
+
+		</p:outputPanel>
+
+	</h:form>
+</h:body>
+</html>
