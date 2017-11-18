@@ -1,9 +1,12 @@
 package co.edu.javeriana.posa.services;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.tempuri.WsAutenticacion;
 
 import co.edu.javeriana.posa.objects.Cliente;
+import co.edu.javeriana.posa.objects.Cuenta;
 
 public class BrokerRestLogin {
 
@@ -21,6 +24,7 @@ public class BrokerRestLogin {
 		}
 		catch(Exception e){
 			logger.info(_CLASS+"[FIN]"+_METHOD,e);
+			e.printStackTrace();
 			return null;
 			}
 	}
@@ -59,8 +63,23 @@ public class BrokerRestLogin {
 			logger.info(_CLASS+"[FIN]");
 			return cliente;
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new Exception(e);
 		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String args[]) throws Exception{
+		BrokerRestLogin res = new BrokerRestLogin();
+		Cliente cliente = new Cliente();
+		cliente.setUsuario("frodriguez");
+		cliente.setPassword("frodriguez1");
+		cliente = res.getLogin(cliente);
+		System.out.println("cliente.getPrimerNombre(): " +cliente.getPrimerNombre());
 	}
 }
 

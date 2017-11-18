@@ -16,6 +16,8 @@ public class BrokerRestCuenta {
 	private static final Logger logger = Logger.getLogger(BrokerRestCuenta.class);
 	private final String _CLASS = "[BrokerRestCuenta]";
 	
+	public BrokerRestCuenta(){}
+	
 	public List<Cuenta> getCuenta(Cuenta cuenta){
 		final String _METHOD = "[get]";
 		try{
@@ -26,6 +28,7 @@ public class BrokerRestCuenta {
 		}
 		catch(Exception e){
 			logger.info(_CLASS+"[FIN]"+_METHOD,e);
+			e.printStackTrace();
 			return null;
 		}
 	}	
@@ -72,7 +75,21 @@ public class BrokerRestCuenta {
 			logger.info(_CLASS+"[FIN]");
 			return listCuenta;
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new Exception(e);
 		}
 	}	
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String args[]) throws Exception{
+		BrokerRestCuenta res = new BrokerRestCuenta();
+		Cuenta cuenta = new Cuenta();
+		cuenta.setTipoDocumento(1);
+		cuenta.setDocumento("80073603");
+		List<Cuenta> list = res.getCuentas(cuenta);
+		System.out.println("list.size(): " +list.size());
+	}
 }

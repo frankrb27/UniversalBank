@@ -8,6 +8,7 @@ import org.tempuri.ArrayOfPrestamosBE;
 import org.tempuri.PrestamosBE;
 import org.tempuri.WsPrestamos;
 
+import co.edu.javeriana.posa.objects.Cuenta;
 import co.edu.javeriana.posa.objects.Prestamo;
 
 public class BrokerRestPrestamo {
@@ -26,6 +27,7 @@ public class BrokerRestPrestamo {
 		}
 		catch(Exception e){
 			logger.info(_CLASS+"[FIN]"+_METHOD,e);
+			e.printStackTrace();
 			return null;
 		}
 	}	
@@ -71,7 +73,21 @@ public class BrokerRestPrestamo {
 			logger.info(_CLASS+"[FIN]");
 			return listPrestamo;
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new Exception(e);
 		}
+	}
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String args[]) throws Exception{
+		BrokerRestPrestamo res = new BrokerRestPrestamo();
+		Prestamo  prestamo = new Prestamo ();
+		prestamo.setTipoDocumento(1);
+		prestamo.setDocumento("80073603");
+		List<Prestamo > list = res.getPrestamo(prestamo);
+		System.out.println("list.size(): " +list.size());
 	}	
 }

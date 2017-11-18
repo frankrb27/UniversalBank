@@ -1,7 +1,12 @@
 package co.edu.javeriana.posa.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Logger;
 import org.tempuri.ArrayOfPagosProgramadosBE;
@@ -27,6 +32,7 @@ public class BrokerRestPagosProgramados {
 		}
 		catch(Exception e){
 			logger.info(_CLASS+"[FIN]"+_METHOD,e);
+			e.printStackTrace();
 			return null;
 		}
 	}	
@@ -41,6 +47,7 @@ public class BrokerRestPagosProgramados {
 		}
 		catch(Exception e){
 			logger.info(_CLASS+"[FIN]"+_METHOD,e);
+			e.printStackTrace();
 			return null;
 		}
 	}	
@@ -112,6 +119,7 @@ public class BrokerRestPagosProgramados {
 			logger.info(_CLASS+"[FIN]");
 			return listCuenta;
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new Exception(e);
 		}
 	}	
@@ -147,7 +155,37 @@ public class BrokerRestPagosProgramados {
 				throw new Exception();
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new Exception(e);
 		}
+	}
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String args[]) throws Exception{
+		BrokerRestPagosProgramados res = new BrokerRestPagosProgramados();
+		//Consultar
+		PagoProgramado pagoProgramado = new PagoProgramado();
+		pagoProgramado.setTipoDocumento(1);
+		pagoProgramado.setDocumento("80073603");
+		List<PagoProgramado> list = res.getPagosProgramado(pagoProgramado);
+		System.out.println("list.size(): " +list.size());
+		//Registrar
+		GregorianCalendar gcal = new GregorianCalendar();
+		XMLGregorianCalendar fec = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+		pagoProgramado.setDocumento("80073603");
+		pagoProgramado.setEmpresa("ETB");
+		pagoProgramado.setEstado("Inscrita");
+		pagoProgramado.setFechaProgramacion(fec);
+		pagoProgramado.setIdPago(1);
+		pagoProgramado.setNalInternal(0);
+		pagoProgramado.setNumeroCuenta("2323322323");
+		pagoProgramado.setNumeroFactura("21332323");
+		pagoProgramado.setTipoServicio("acueducto2");
+		pagoProgramado.setValorPago(new BigDecimal(230000));
+		pagoProgramado = res.register(pagoProgramado);
+		System.out.println("pagoId: "+pagoProgramado.getIdPago());
 	}	
 }

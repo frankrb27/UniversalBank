@@ -1,6 +1,7 @@
 package co.edu.javeriana.posa.objects;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
