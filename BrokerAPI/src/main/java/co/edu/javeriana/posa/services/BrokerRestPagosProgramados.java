@@ -1,7 +1,10 @@
 package co.edu.javeriana.posa.services;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -152,7 +155,7 @@ public class BrokerRestPagosProgramados {
 			if(respuestaBE.getRespuesta()==0){
 				return pagoProgramado;
 			}else{
-				throw new Exception();
+				throw new Exception(respuestaBE.getDescripcionRta());
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -173,12 +176,15 @@ public class BrokerRestPagosProgramados {
 		List<PagoProgramado> list = res.getPagosProgramado(pagoProgramado);
 		System.out.println("list.size(): " +list.size());
 		//Registrar
-		GregorianCalendar gcal = new GregorianCalendar();
-		XMLGregorianCalendar fec = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+        String FORMATER = "yyyy-MM-dd";
+        DateFormat format = new SimpleDateFormat(FORMATER);
+        Date date = new Date();
+        XMLGregorianCalendar gDateFormatted1 =
+            DatatypeFactory.newInstance().newXMLGregorianCalendar(format.format(date));
 		pagoProgramado.setDocumento("80073603");
 		pagoProgramado.setEmpresa("ETB");
 		pagoProgramado.setEstado("Inscrita");
-		pagoProgramado.setFechaProgramacion(fec);
+		pagoProgramado.setFechaProgramacion(gDateFormatted1);
 		pagoProgramado.setIdPago(1);
 		pagoProgramado.setNalInternal(0);
 		pagoProgramado.setNumeroCuenta("2323322323");
