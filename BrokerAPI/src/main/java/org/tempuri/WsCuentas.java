@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "WsCuentas", targetNamespace = "http://tempuri.org/", wsdlLocation = "file:/C:/Users/frank/Desktop/Cliente/WsCuentas.wsdl")
+@WebServiceClient(name = "WsCuentas", targetNamespace = "http://tempuri.org/", wsdlLocation = "http://localhost:8056/WsCuentas.asmx?wsdl")
 public class WsCuentas
     extends Service
 {
@@ -30,7 +30,7 @@ public class WsCuentas
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Users/frank/Desktop/Cliente/WsCuentas.wsdl");
+            url = new URL("http://localhost:8056/WsCuentas.asmx?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+
+	<h:head>
+		<title>Inicio</title>
+		<link rel="stylesheet" type="text/css" href="../../css/menu.css"
+			media="screen" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Abel|BenchNine|Chathura|Dosis|Josefin+Sans|Pathway+Gothic+One|Yanone+Kaffeesatz"
+			rel="stylesheet" />
+
+	</h:head>
+	<h:body align="center">
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="north" size="60">
+				<p:panel styleClass="iniciaSesion">
+					<p:commandLink title="Cerrar Sesion">
+						<img src="../../imagenes/off.png" width="20px" height="20px"></img>
+					</p:commandLink>
+
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="150">
+				<center>
+					<p:commandLink title="Banco Universal">
+						<img src="../../imagenes/user.png" width="50px" height="50px"></img>
+					</p:commandLink>
+					<br />
+					<p:outputLabel value="#{menuBean.cliente.primerNombre} "
+						styleClass="textFont"></p:outputLabel>
+					<p:outputLabel value="#{menuBean.cliente.primerApellido}"
+						styleClass="textFont"></p:outputLabel>
+				</center>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<p:panel styleClass="iniciaSesion" style="border:none">
+					<p:panelGrid columns="2" style="width:100%;">
+						<p:panel styleClass="iniciaSesion">
+							<center>
+								<p:outputLabel value="Cuentas" styleClass="textFont"></p:outputLabel>
+							</center>
+							<p:commandLink title="Cuentas">
+								<img src="../../imagenes/cuenta2.png" width="45px" height="45px"></img>
+							</p:commandLink>
+							<br />
+							<p:dataList value="#{menuBean.cuentascliente}" var="cuentas" emptyMessage="No hay cuentas asocidas">
+								
+								<p:commandLink update=":form:carDetail" title="View Detail"
+									styleClass="ui-icon ui-icon-search"
+									style="float:left;margin-right:10px">
+									<f:setPropertyActionListener value="#{cuentas}"
+										target="#{dataListView.selectedCar}" />
+									<h:outputText
+										value="#{cuentas.numeroCuenta}, #{cuentas.saldoCuenta}" />
+								</p:commandLink>
+								<h:outputText
+									value="#{cuentas.numeroCuenta}, #{cuentas.saldoCuenta}"
+									style="display:inline-block" />
+							</p:dataList>
+						</p:panel>
+						<p:panel styleClass="iniciaSesion">
+							<center>
+								<p:outputLabel value="Prestamos" styleClass="textFont"></p:outputLabel>
+							</center>
+							<p:commandLink title="Prestamos">
+								<img src="../../imagenes/loan.png" width="45px" height="45px"></img>
+							</p:commandLink>
+
+						</p:panel>
+					</p:panelGrid>
+				</p:panel>
+			</p:layoutUnit>
+
+		</p:layout>
+
+
+	</h:body>
+</f:view>
+</html>

@@ -6,6 +6,7 @@ package co.edu.javeriana.posa.bean;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
@@ -59,8 +60,6 @@ public class LoginBean implements Serializable {
 				msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario es requerido", "");
 			} else if (StringUtils.isNullorisEmpty(password)) {
 				msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña es requerida", "");
-			} else if (StringUtils.isNullorisEmpty(rol)) {
-				msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione un Rol", "");
 			} else {
 				cliente_.setUsuario(userName);
 				cliente_.setPassword(password);
@@ -68,16 +67,13 @@ public class LoginBean implements Serializable {
 				if (cliente_ != null && null != cliente_.getIdCliente() && cliente_.getIdCliente() > 0) {
 					msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "");
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Cliente", cliente_);
-					if (rol.equals("1")) {
-						RequestContext.getCurrentInstance().addCallbackParam("view", "pages/cliente/MenuCliente.xhtml");
-					} else if (rol.equals("2")) {
-						RequestContext.getCurrentInstance().addCallbackParam("view",
-								"pages/proveedor/MenuProveedor.xhtml");
-					}
-
+					ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+					context.redirect(context.getRequestContextPath() + "/pages/banco/MenuPrincipal.xhtml");
 					estaLogeado = true;
 				} else {
-					msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Datos ingresados incorrectamente");
+					msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Usuario No Válido");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
 				}
 
 			}
@@ -86,10 +82,8 @@ public class LoginBean implements Serializable {
 			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Error al iniciar sesión");
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-		RequestContext.getCurrentInstance().addCallbackParam("estaLogeado", estaLogeado);
 	}
-	
+
 	public void logout() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.invalidate();

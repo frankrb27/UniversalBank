@@ -1,4 +1,4 @@
-
+	
 package org.tempuri;
 
 import java.net.MalformedURLException;
@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "WsAutenticacion", targetNamespace = "http://tempuri.org/", wsdlLocation = "file:/C:/Users/frank/Desktop/Cliente/WsAutenticacion.wsdl")
+@WebServiceClient(name = "WsAutenticacion", targetNamespace = "http://tempuri.org/", wsdlLocation = "http://localhost:8056/WsAutenticacion.asmx?wsdl")
 public class WsAutenticacion
     extends Service
 {
@@ -30,7 +30,7 @@ public class WsAutenticacion
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Users/frank/Desktop/Cliente/WsAutenticacion.wsdl");
+            url = new URL("http://localhost:8056/WsAutenticacion.asmx?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

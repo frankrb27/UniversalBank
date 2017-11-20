@@ -1,120 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-	<title>Login</title>
-	<link rel="icon" type="image/png" href="/imagenes/list.png" />
-	<script src="js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/login.css"
+		media="screen" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Abel|BenchNine|Chathura|Dosis|Josefin+Sans|Pathway+Gothic+One|Yanone+Kaffeesatz"
+		rel="stylesheet" />
 </h:head>
-<h:body align="center">
-
-	<div align="center">
-		<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-		<p:panel header="Iniciar sesion" style="width:400px;">
-
-			<h:outputText value="Sistema Aprovisionamiento Inventarios" />
-			<br />
-			<h:form id="ingresar">
-				<p:messages id="mensajes" showDetail="true" autoUpdate="false"
-					closable="true" styleClass="textFont" />
-				<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-				<br />
-				<h:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-7"
-					layout="grid" styleClass="ui-panelgrid-blank">
-
-					<h:outputLabel for="username" value="Username:" />
-					<p:inputText id="username" styleClass="username" required="true"
-						label="username" value="#{loginBean.userName}" />
-
-					<h:outputLabel for="password" value="Password:" />
-					<p:password id="password" styleClass="password" required="true"
-						label="password" value="#{loginBean.password}" />
-
-				</h:panelGrid>
-				<h:panelGrid columns="1">
-					<br />
-					<p:selectOneMenu id="console" value="#{loginBean.rol}"
-						style="width:125px">
-						<f:selectItem itemLabel="Seleccione un Rol" itemValue="" />
-						<f:selectItem itemLabel="Cliente" itemValue="1" />
-						<f:selectItem itemLabel="Proveedor" itemValue="2" />
-					</p:selectOneMenu>
-					<br />
-					<p:commandButton value="Login" actionListener="#{loginBean.login}"
-						update=":ingresar:mensajes" style="width:100%"
-						oncomplete="manejarLogin(xhr, status, args)" />
-
-
-					<p:commandLink value="Registrarse como Proveedor" global="false"
-						onclick="PF('crearCuentaW').show();"
-						style="color:#4285f4; font-size:14px" styleClass="textFont">
-					</p:commandLink>
-				</h:panelGrid>
-			</h:form>
+<h:body style="text-align:center">
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col3"
+		layout="grid" id="panelP" styleClass="ui-panelgrid-blank">
+		
+		<p:panel id="panelLeft">
+			<img src="imagenes/bank.png" width="120px" height="120px"></img>
 		</p:panel>
+		<p:panel id="panel1" style="border:none" styleClass="iniciaSesion">
 
-		<p:dialog header="Registrate" widgetVar="crearCuentaW"
-			position="center center" onShow="PF('crearCuentaW').initPosition()"
-			modal="false" id="crearCuenta" showEffect="blind" responsive="true"
-			hideEffect="blind" width="620" resizable="false" draggable="false"
-			styleClass="textFont">
-			<h:form id="reg">
-				<h:panelGrid columns="2">
-					<p:outputLabel for="c1" value="Tipo de Documento"></p:outputLabel>
-					<p:selectOneMenu id="c1" value="#{loginBean.tipoDoc}"
-						style="width:125px">					
-						<f:selectItem itemLabel="Cedula de Ciudadania" itemValue="1" />
-						<f:selectItem itemLabel="Nit" itemValue="2" />					
-					</p:selectOneMenu>
+			<p:outputLabel value="Banco Universal Iniciar Sesion" styleClass="textFont"></p:outputLabel>
+			<p:separator></p:separator>
 
-					<p:outputLabel for="c2" value="Numero de Documento"></p:outputLabel>
-					<p:inputText id="c2" value="#{loginBean.numDoc}"></p:inputText>
+			<div class="ui-fluid">
+				<h:form id="ingresar">
+					<p:messages id="mensajes" showDetail="true" autoUpdate="false"
+						closable="true" styleClass="textFont" />
+					<p:panelGrid columns="1" style="text-align: left;"
+						columnClasses="ui-grid-col-10,ui-grid-col-5" layout="grid"
+						id="panelSesion" styleClass="ui-panelgrid-blank">
 
-					<p:outputLabel for="c3" value="Razon Social"></p:outputLabel>
-					<p:inputText id="c3" value="#{loginBean.razonSocial}"></p:inputText>
+						<p:outputLabel value="usuario" styleClass="textFont"
+							style="font-size:15px"></p:outputLabel>
+						<p:inputText styleClass="borderBottom" id="username" value="#{loginBean.userName}"
+							style="border: 0;outline: 0;background: transparent;border-bottom: 3px solid #4285f4;" />
 
-					<p:outputLabel for="c4" value="Tipo de Documento RL"></p:outputLabel>
-					<p:selectOneMenu id="c4" value="#{loginBean.tipoDocal}"
-						style="width:125px">					
-						<f:selectItem itemLabel="Cedula de Ciudadania" itemValue="1" />
-						<f:selectItem itemLabel="Nit" itemValue="2" />					
-					</p:selectOneMenu>
+						<p:outputLabel value="contraseña" style="font-size:15px"
+							styleClass="textFont"></p:outputLabel>
+						<p:password styleClass="borderBottom" id="password" value="#{loginBean.password}"
+							style="border: 0;outline: 0;background: transparent;border-bottom: 3px solid #4285f4;" />
 
-					<p:outputLabel for="c5" value="Primer Nombre"></p:outputLabel>
-					<p:inputText id="c5" value="#{loginBean.pNombre}"></p:inputText>
-
-					<p:outputLabel for="c6" value="Segundo Nombre"></p:outputLabel>
-					<p:inputText id="c6" value="#{loginBean.sNombre}"></p:inputText>
-
-					<p:outputLabel for="c7" value="Primer Apellido"></p:outputLabel>
-					<p:inputText id="c7" value="#{loginBean.pApellido}"></p:inputText>
-
-					<p:outputLabel for="c8" value="Segundo Apellido"></p:outputLabel>
-					<p:inputText id="c8" value="#{loginBean.sApellido}"></p:inputText>
-
-					<p:outputLabel for="c9" value="Telefono"></p:outputLabel>
-					<p:inputText id="c9" value="#{loginBean.telefono}"></p:inputText>
-
-					<p:outputLabel for="c10" value="Direccion"></p:outputLabel>
-					<p:inputText id="c10" value="#{loginBean.direccion}"></p:inputText>
-
-					<p:outputLabel for="c11" value="Ciudad"></p:outputLabel>
-					<p:inputText id="c11" value="#{loginBean.ciudad}"></p:inputText>
-
-					<p:outputLabel for="c12" value="Depto"></p:outputLabel>
-					<p:inputText id="c12" value="#{loginBean.depto}"></p:inputText>
-
-
-				</h:panelGrid>
-				<p:commandButton value="Registrarse" update=":ingresar:mensajes"
-					oncomplete="PF('crearCuentaW').hide();"
-					actionListener="#{loginBean.registrarse}"></p:commandButton>
-			</h:form>
-		</p:dialog>
-	</div>
+						<p:commandButton id="loginButton" value="Ingresar"
+							update=":ingresar:mensajes" actionListener="#{loginBean.login}"></p:commandButton>
+					</p:panelGrid>
+				</h:form>
+				<p:separator></p:separator>
+			</div>
+		</p:panel>
+		<p:panel>
+		</p:panel>
+	</p:panelGrid>
 </h:body>
 
 </html>
