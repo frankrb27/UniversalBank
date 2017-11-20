@@ -1,20 +1,26 @@
 @CHARSET "UTF-8";
 
 .ui-datalist .ui-datalist-empty-message {
-    padding: 4px 10px;
-    font-family: 'Abel', sans-serif;
-}
-
-.ui-datalist-content .ui-widget-content{
-	border:none;
+	padding: 4px 10px;
 	font-family: 'Abel', sans-serif;
 }
 
-.li.ui-datalist-item{
+.ui-datalist-content .ui-widget-content {
+	border: none;
 	font-family: 'Abel', sans-serif;
 }
+
+.li.ui-datalist-item {
+	font-family: 'Abel', sans-serif;
+	width: 100%;
+}
+
 .ui-layout-pane-south {
 	border: 0;
+}
+
+.datalist-noborder .ui-widget-content {
+	border: none;
 }
 
 .ui-layout-pane {
@@ -22,13 +28,13 @@
 }
 
 .li {
-    display: list-item;
-    font-family: 'Abel', sans-serif;
+	display: list-item;
+	font-family: 'Abel', sans-serif;
 }
 
 .ui-panelgrid {
-	border:none;
-    font-family: 'Abel', sans-serif;
+	border: none;
+	font-family: 'Abel', sans-serif;
 }
 
 .ui-layout-north .ui-layout-unit-content {
@@ -82,12 +88,14 @@
 	font-size: 15px;
 	border: none;
 }
+
 .ui-dialog.ui-widget-content .ui-dialog-titlebar {
 	padding: 9px 15px;
 	border-bottom: 1px solid #eee;
 	background-color: #114d70;
 	color: #fff;
 }
+
 .iniciaSesion>.ui-panel-titlebar {
 	padding: .5em 1em .3em;
 	font-family: 'Abel', sans-serif;
@@ -101,22 +109,9 @@
 	outline: 0;
 	background: transparent;
 	-webkit-animation-name: example;
-    -webkit-animation-duration: 4s;
-    animation-name: example;
-    animation-duration: 2s;
-}
-@-webkit-keyframes example {
-    0%   {border-bottom: 3px solid #4285f4;}
-    25%  {border-bottom: 3px solid #FFFFFF;}
-    50%  {border-bottom: 3px solid #FFFFFF;}
-    100% {border-bottom: 3px solid #4285f4;}
-}
-
-@keyframes example {
-   0%   {border-bottom: 3px solid #4285f4;}
-    25%  {border-bottom: 3px solid #FFFFFF;}
-    50%  {border-bottom: 3px solid #FFFFFF;}
-    100% {border-bottom: 3px solid #4285f4;}
+	-webkit-animation-duration: 4s;
+	animation-name: example;
+	animation-duration: 2s;
 }
 
 .iniciaSesion>.ui-panel-content {
@@ -137,8 +132,6 @@
 	font-size: 20px;
 	color: #ffffff;
 }
-
-
 
 .ui-button .ui-button-text {
 	font-family: 'Abel', sans-serif;
@@ -175,10 +168,11 @@
 	text-align: left;
 	white-space: nowrap;
 }
+
 .ui-selectonemenu {
-	width: 90% !important;
+	width: 70% !important;
 }
 
 .ui-selectonemenu-label {
-	width: 100% !important;
+	width: 70% !important;
 }

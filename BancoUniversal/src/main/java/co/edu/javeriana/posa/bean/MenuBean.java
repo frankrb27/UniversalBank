@@ -23,11 +23,11 @@ public class MenuBean implements Serializable {
 	private Cuenta selectedCuenta;
 	private Prestamo selectedPresta;
 	private PagoProgramado selectedPagoProgramado;
+	private String cuentaPay;
 
 	public MenuBean() {
 
 		try {
-
 			cliente = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("Cliente");
 			if (cliente != null) {
 				BrokerRestCuenta cuentas = new BrokerRestCuenta();
@@ -60,6 +60,13 @@ public class MenuBean implements Serializable {
 			System.out.println("Error " + ex.getMessage());
 		}
 
+	}
+	public void changeCuenta() {
+		System.out.println("Cambiando a: "+cuentaPay);
+	}
+
+	public void pagarP() {
+		System.out.println("Pagando");
 	}
 	
 	public void logOut() {
@@ -130,7 +137,13 @@ public class MenuBean implements Serializable {
 		this.selectedPagoProgramado = selectedPagoProgramado;
 	}
 
-	
+	public String getCuentaPay() {
+		return cuentaPay;
+	}
+
+	public void setCuentaPay(String cuentaPay) {
+		this.cuentaPay = cuentaPay;
+	}
 	
 	
 }
