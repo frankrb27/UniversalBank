@@ -100,7 +100,9 @@
 												target="#{menuBean.selectedCuenta}" />
 										</p:commandLink>
 										<p:outputLabel styleClass="textFont"
-											value="  Cuenta #{cuentas.tipoCuenta  == '1' ? 'Ahorros': 'Corriente'}"></p:outputLabel>
+											value="  Saldo  #{cuentas.saldoCuenta}"></p:outputLabel>
+<!-- 										<p:outputLabel styleClass="textFont" -->
+<!-- 											value="  Cuenta #{cuentas.tipoCuenta  == '1' ? 'Ahorros': 'Corriente'}"></p:outputLabel> -->
 									</p:dataList>
 								</div>
 								<p:dialog header="Detalle Cuenta" widgetVar="cuentasDialog"
@@ -192,7 +194,7 @@
 										<p:panelGrid columns="2">
 											<p:outputLabel value="Valor a Pagar: " styleClass="textFont" />
 											<p:inputNumber styleClass="textFont" size="8"
-												style="width:50%"></p:inputNumber>
+												value="#{menuBean.pagoDebita}" style="width:50%"></p:inputNumber>
 
 											<p:selectOneMenu id="console" value="#{menuBean.cuentaPay}"
 												style="width:125px">
@@ -203,7 +205,7 @@
 												<p:ajax listener="#{menuBean.changeCuenta}" global="false" />
 											</p:selectOneMenu>
 											<p:commandLink title="Pagar"
-												actionListener="#{menuBean.pagarP}" update="panelPay">
+												actionListener="#{menuBean.pagarP}" update="messagesAdd">
 												<img src="../../imagenes/pagar.png" width="30px"
 													height="30px" />
 												<p:confirm header="Confirma Debito"
@@ -219,6 +221,8 @@
 										</p:confirmDialog>
 
 									</p:panel>
+									<p:messages id="messagesAdd" showDetail="true"
+										autoUpdate="false" showIcon="false" closable="true" />
 								</h:form>
 							</p:dialog>
 

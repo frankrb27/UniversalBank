@@ -2,6 +2,7 @@ package co.edu.javeriana.posa.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -24,6 +25,7 @@ public class MenuBean implements Serializable {
 	private Prestamo selectedPresta;
 	private PagoProgramado selectedPagoProgramado;
 	private String cuentaPay;
+	private double pagoDebita;
 
 	public MenuBean() {
 
@@ -35,15 +37,15 @@ public class MenuBean implements Serializable {
 				cuentaCl.setTipoDocumento(cliente.getIdTipoDoc());
 				cuentaCl.setDocumento(cliente.getNumeroDocumento());
 				cuentascliente = cuentas.getCuenta(cuentaCl);
-				
+
 				BrokerRestPrestamo prestamos = new BrokerRestPrestamo();
 				Prestamo prestamosCl = new Prestamo();
 				prestamosCl.setTipoDocumento(cliente.getIdTipoDoc());
 				prestamosCl.setDocumento(cliente.getNumeroDocumento());
 				prestamosCliente = prestamos.getPrestamo(prestamosCl);
-				
+
 				BrokerRestPagosProgramados pagos = new BrokerRestPagosProgramados();
-				PagoProgramado pago= new PagoProgramado();
+				PagoProgramado pago = new PagoProgramado();
 				pago.setTipoDocumento(cliente.getIdTipoDoc());
 				pago.setDocumento(cliente.getNumeroDocumento());
 				pagosProgramados = pagos.getPagosProgramado(pago);
@@ -61,24 +63,57 @@ public class MenuBean implements Serializable {
 		}
 
 	}
+
 	public void changeCuenta() {
-		System.out.println("Cambiando a: "+cuentaPay);
+		System.out.println("Cambiando a: " + cuentaPay);
 	}
 
 	public void pagarP() {
-		System.out.println("Pagando");
+
+		if (cuentaPay.equals("")) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe seleccionar una cuenta", "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} else {
+			String[] cuentaReq = cuentaPay.split(",");
+			Cuenta cuentaDebitar = consultarCuenta(cuentaReq[0], cuentaReq[1]);
+			BigDecimal pagoADebitar = new BigDecimal(pagoDebita);
+
+			if (cuentaDebitar.getSaldoCuenta().compareTo(pagoADebitar) < 0) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fondos Insuficientes", "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else if (selectedPresta.getDeudaPrestamo().compareTo(pagoADebitar) < 0) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"El valor a pagar no puede ser superior a la deuda", "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pago Exitoso", "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
 	}
-	
+
 	public void logOut() {
 
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/BancoUniversal/inicio.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/BancoUniversal/inicio.xhtml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public Cuenta consultarCuenta(String tipo, String numero) {
+
+		Cuenta c = new Cuenta();
+		c.setTipoCuenta(tipo);
+		c.setNumeroCuenta(numero);
+		BrokerRestCuenta cuentas = new BrokerRestCuenta();
+		List<Cuenta> cuentasL = cuentas.getCuenta(c);
+		if (cuentasL != null) {
+			c = cuentasL.get(0);
+		}
+		return c;
 	}
 
 	public Cliente getCliente() {
@@ -144,6 +179,13 @@ public class MenuBean implements Serializable {
 	public void setCuentaPay(String cuentaPay) {
 		this.cuentaPay = cuentaPay;
 	}
-	
-	
+
+	public double getPagoDebita() {
+		return pagoDebita;
+	}
+
+	public void setPagoDebita(double pagoDebita) {
+		this.pagoDebita = pagoDebita;
+	}
+
 }
