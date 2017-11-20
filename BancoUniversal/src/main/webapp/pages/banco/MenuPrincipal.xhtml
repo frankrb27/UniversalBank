@@ -19,14 +19,17 @@
 
 			<p:layoutUnit position="north" size="60">
 				<p:panel styleClass="iniciaSesion">
-					<p:commandLink title="Cerrar Sesion">
-						<img src="../../imagenes/off.png" width="20px" height="20px"></img>
-					</p:commandLink>
-
+					<h:form>
+						<p:commandLink title="Cerrar Sesion"
+							actionListener="#{menuBean.logOut}">
+							<img src="../../imagenes/off.png" width="20px" height="20px"></img>
+						</p:commandLink>
+					</h:form>
 				</p:panel>
 			</p:layoutUnit>
 
-			<p:layoutUnit position="west" size="150">
+			<p:layoutUnit position="west" size="240">
+				<p:separator style="color:#339CFF"></p:separator>
 				<center>
 					<p:commandLink title="Banco Universal">
 						<img src="../../imagenes/user.png" width="50px" height="50px"></img>
@@ -36,46 +39,149 @@
 						styleClass="textFont"></p:outputLabel>
 					<p:outputLabel value="#{menuBean.cliente.primerApellido}"
 						styleClass="textFont"></p:outputLabel>
+					<br/><br/>
+					<p:outputLabel value="Pagos Programados"
+						style="width:100%;color: #000000;" styleClass="textFont"></p:outputLabel>
+					<h:form id="form3">
+						<p:dataList value="#{menuBean.pagosProgramados}" var="pagosP"
+							emptyMessage="No hay Pagos Programados">
+							<p:commandLink title="Cuentas">
+								<img src="../../imagenes/pagoCel.png" width="25px" height="25px"></img>
+							</p:commandLink>
+							<p:spacer width="20" height="10" />
+							<p:outputLabel id="key" styleClass="textFont" value="#{pagosP.tipoServicio}"	style="width:100%;color: #4285f4;" />
+							<p:tooltip id="toolTipContent" for="key" position="bottom">
+								<p:panelGrid columns="2">
+									<p:outputLabel styleClass="textFont" value="Empresa" />
+									<p:outputLabel styleClass="textFont" value="#{pagosP.empresa}" />
+									
+									<p:outputLabel styleClass="textFont" value="Estado" />
+									<p:outputLabel styleClass="textFont" value="#{pagosP.estado}" />
+									
+									<p:outputLabel styleClass="textFont" value="Valor Pago" />
+									<p:outputLabel styleClass="textFont" value="#{pagosP.valorPago}" />
+								</p:panelGrid>
+							</p:tooltip>
+						</p:dataList>
+					</h:form>
+
 				</center>
 			</p:layoutUnit>
 
 			<p:layoutUnit position="center">
+				<p:separator style="color:#339CFF"></p:separator>
+
 				<p:panel styleClass="iniciaSesion" style="border:none">
-					<p:panelGrid columns="2" style="width:100%;">
-						<p:panel styleClass="iniciaSesion">
-							<center>
+					<p:panelGrid columns="2" style="width:100%;border:none">
+						<p:panel styleClass="iniciaSesion" style="width:50%">
+							<h:form id="form">
+<!-- 								<p:commandLink title="Cuentas"> -->
+<!-- 									<img src="../../imagenes/cuenta2.png" width="45px" -->
+<!-- 										height="45px"></img> -->
+<!-- 								</p:commandLink> -->
 								<p:outputLabel value="Cuentas" styleClass="textFont"></p:outputLabel>
-							</center>
-							<p:commandLink title="Cuentas">
-								<img src="../../imagenes/cuenta2.png" width="45px" height="45px"></img>
-							</p:commandLink>
-							<br />
-							<p:dataList value="#{menuBean.cuentascliente}" var="cuentas" emptyMessage="No hay cuentas asocidas">
-								
-								<p:commandLink update=":form:carDetail" title="View Detail"
-									styleClass="ui-icon ui-icon-search"
-									style="float:left;margin-right:10px">
-									<f:setPropertyActionListener value="#{cuentas}"
-										target="#{dataListView.selectedCar}" />
-									<h:outputText
-										value="#{cuentas.numeroCuenta}, #{cuentas.saldoCuenta}" />
-								</p:commandLink>
-								<h:outputText
-									value="#{cuentas.numeroCuenta}, #{cuentas.saldoCuenta}"
-									style="display:inline-block" />
-							</p:dataList>
+								<p:separator></p:separator>
+								<p:dataList value="#{menuBean.cuentascliente}" var="cuentas"
+									emptyMessage="No hay cuentas asocidas" style="width:100%;">
+
+									<p:commandLink update=":form:cuentasDetail" title="Ver detalle"
+										styleClass="textFont" value="#{cuentas.numeroCuenta}"
+										oncomplete="PF('cuentasDialog').show()"
+										style="width:100%;color: #4285f4;">
+										<f:setPropertyActionListener value="#{cuentas}"
+											target="#{menuBean.selectedCuenta}" />
+									</p:commandLink>
+									<p:outputLabel styleClass="textFont"
+										value="  Cuenta #{cuentas.tipoCuenta  == '1' ? 'Ahorros': 'Corriente'}"></p:outputLabel>
+								</p:dataList>
+								<p:dialog header="Detalle Cuenta" widgetVar="cuentasDialog"
+									appendTo="@(body)" position="center center"
+									onShow="PF('cuentasDialog').initPosition()" modal="true"
+									showEffect="blind" hideEffect="explode" resizable="false">
+									<p:outputPanel id="cuentasDetail" style="text-align:center;">
+										<p:panelGrid columns="2"
+											rendered="#{not empty menuBean.selectedCuenta}"
+											columnClasses="label,value">
+											<f:facet name="header">
+												<img src="../../imagenes/cuenta2.png" width="25px"
+													height="25px"></img>
+											</f:facet>
+
+											<h:outputText value="numero de Cuenta:" />
+											<h:outputText value="#{menuBean.selectedCuenta.numeroCuenta}" />
+
+											<h:outputText value="tipo de cuenta" />
+											<h:outputText
+												value="#{menuBean.selectedCuenta.tipoCuenta  == '1' ? 'Ahorros': 'Corriente'}" />
+
+											<h:outputText value="Saldo:" />
+											<p:inputNumber value="#{menuBean.selectedCuenta.saldoCuenta}"
+												readonly="true" />
+										</p:panelGrid>
+
+										<p:separator></p:separator>
+										<p:commandLink value="Programar Pago"></p:commandLink>
+
+									</p:outputPanel>
+								</p:dialog>
+							</h:form>
 						</p:panel>
-						<p:panel styleClass="iniciaSesion">
-							<center>
+						<p:panel styleClass="iniciaSesion" style="width:50%">
+							<h:form id="form2">						
+<!-- 								<p:commandLink title="Prestamos"> -->
+<!-- 									<img src="../../imagenes/loan.png" width="45px" height="45px"></img> -->
+<!-- 								</p:commandLink> -->
 								<p:outputLabel value="Prestamos" styleClass="textFont"></p:outputLabel>
-							</center>
-							<p:commandLink title="Prestamos">
-								<img src="../../imagenes/loan.png" width="45px" height="45px"></img>
-							</p:commandLink>
+								<p:separator></p:separator>
+								<p:dataList value="#{menuBean.prestamosCliente}" var="presta"
+									emptyMessage="No hay Prestamos asocidos">
+
+									<p:commandLink update=":form2:prestaDetail" title="Ver Detalle"
+										styleClass="textFont" value="#{presta.numeroPrestamo}"
+										oncomplete="PF('prestaDialog').show()"
+										style="width:100%;color: #4285f4;">
+										<f:setPropertyActionListener value="#{presta}"
+											target="#{menuBean.selectedPresta}" />
+									</p:commandLink>
+									<p:outputLabel styleClass="textFont"
+										value="  Prestamo #{presta.tipoPrestamo}"></p:outputLabel>
+								</p:dataList>
+								<p:dialog header="Detalle Prestamo" widgetVar="prestaDialog"
+									appendTo="@(body)" position="center center"
+									onShow="PF('prestaDialog').initPosition()" modal="true"
+									showEffect="blind" hideEffect="explode" resizable="false">
+									<p:outputPanel id="prestaDetail" style="text-align:center;">
+										<p:panelGrid columns="2"
+											rendered="#{not empty menuBean.selectedPresta}"
+											columnClasses="label,value">
+											<f:facet name="header">
+												<img src="../../imagenes/loan.png" width="35px"
+													height="35px"></img>
+											</f:facet>
+
+											<h:outputText value="numero de Prestamo:" />
+											<h:outputText
+												value="#{menuBean.selectedPresta.numeroPrestamo}" />
+
+											<h:outputText value="tipo de prestamo" />
+											<h:outputText value="#{menuBean.selectedPresta.tipoPrestamo}" />
+
+											<h:outputText value="Deuda:" />
+											<p:inputNumber
+												value="#{menuBean.selectedPresta.deudaPrestamo}"
+												readonly="true" />
+										</p:panelGrid>
+										<p:separator></p:separator>
+										<p:commandLink value="Programar Pago"></p:commandLink>
+									</p:outputPanel>
+								</p:dialog>
+							</h:form>
 
 						</p:panel>
 					</p:panelGrid>
 				</p:panel>
+			</p:layoutUnit>
+			<p:layoutUnit position="east" size="240">
 			</p:layoutUnit>
 
 		</p:layout>

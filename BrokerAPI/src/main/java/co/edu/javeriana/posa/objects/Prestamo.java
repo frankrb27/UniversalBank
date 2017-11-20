@@ -9,6 +9,7 @@ public class Prestamo {
     private int tipoDocumento;
     private String documento;
     private BigDecimal deudaPrestamo;
+    private String tipoPrestamo;
 	
 	public int getIdPrestamo() {
 		return idPrestamo;
@@ -40,4 +41,11 @@ public class Prestamo {
 	public void setDeudaPrestamo(BigDecimal deudaPrestamo) {
 		this.deudaPrestamo = deudaPrestamo;
 	}
+	public String getTipoPrestamo() {
+		return tipoPrestamo;
+	}
+	public void setTipoPrestamo(String tipoPrestamo) {
+		this.tipoPrestamo = tipoPrestamo;
+	}
+	
 }

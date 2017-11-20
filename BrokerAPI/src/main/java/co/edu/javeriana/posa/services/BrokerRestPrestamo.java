@@ -68,6 +68,14 @@ public class BrokerRestPrestamo {
 				arrPrestamo.setIdPrestamo(prestamoBE.getIdPrestamo());
 				arrPrestamo.setNumeroPrestamo(prestamoBE.getNumeroPrestamo());
 				arrPrestamo.setTipoDocumento(prestamoBE.getTipoDocumento());
+				if(prestamoBE.getNumeroPrestamo().substring(0,1).equals("1")){
+					arrPrestamo.setTipoPrestamo("Educativo");
+				}else if(prestamoBE.getNumeroPrestamo().substring(0,1).equals("2")){
+					arrPrestamo.setTipoPrestamo("Hipotecario");
+				}else {
+					arrPrestamo.setTipoPrestamo("Libre Inversión");
+				}				
+				
 				listPrestamo.add(arrPrestamo);
 			}
 			logger.info(_CLASS+"[FIN]");

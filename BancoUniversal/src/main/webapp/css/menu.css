@@ -1,5 +1,18 @@
 @CHARSET "UTF-8";
 
+.ui-datalist .ui-datalist-empty-message {
+    padding: 4px 10px;
+    font-family: 'Abel', sans-serif;
+}
+
+.ui-datalist-content .ui-widget-content{
+	border:none;
+	font-family: 'Abel', sans-serif;
+}
+
+.li.ui-datalist-item{
+	font-family: 'Abel', sans-serif;
+}
 .ui-layout-pane-south {
 	border: 0;
 }
@@ -8,8 +21,18 @@
 	border: 0;
 }
 
+.li {
+    display: list-item;
+    font-family: 'Abel', sans-serif;
+}
+
+.ui-panelgrid {
+	border:none;
+    font-family: 'Abel', sans-serif;
+}
+
 .ui-layout-north .ui-layout-unit-content {
-	background-color: #ffffff;
+	background-color: #339CFF;
 }
 
 .ui-layout-south .ui-layout-unit-content {
