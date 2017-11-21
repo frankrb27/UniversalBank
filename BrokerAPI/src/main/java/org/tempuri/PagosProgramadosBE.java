@@ -5,9 +5,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -24,7 +22,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="TipoServicio" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="Empresa" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="NumeroFactura" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="FechaProgramacion" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="FechaProgramacion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="TipoCuenta" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="NumeroCuenta" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="TipoDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
@@ -64,9 +62,8 @@ public class PagosProgramadosBE {
     protected String empresa;
     @XmlElement(name = "NumeroFactura")
     protected String numeroFactura;
-    @XmlElement(name = "FechaProgramacion", required = true)
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar fechaProgramacion;
+    @XmlElement(name = "FechaProgramacion")
+    protected String fechaProgramacion;
     @XmlElement(name = "TipoCuenta")
     protected int tipoCuenta;
     @XmlElement(name = "NumeroCuenta")
@@ -175,10 +172,10 @@ public class PagosProgramadosBE {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public XMLGregorianCalendar getFechaProgramacion() {
+    public String getFechaProgramacion() {
         return fechaProgramacion;
     }
 
@@ -187,10 +184,10 @@ public class PagosProgramadosBE {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setFechaProgramacion(XMLGregorianCalendar value) {
+    public void setFechaProgramacion(String value) {
         this.fechaProgramacion = value;
     }
 

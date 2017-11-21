@@ -1,14 +1,8 @@
 package co.edu.javeriana.posa.services;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Logger;
 import org.tempuri.ArrayOfPagosProgramadosBE;
@@ -210,15 +204,10 @@ public class BrokerRestPagosProgramados {
 		List<PagoProgramado> list = res.getPagosProgramado(pagoProgramado);
 		System.out.println("list.size(): " +list.size());
 		//Registrar
-        String FORMATER = "yyyy-MM-dd";
-        DateFormat format = new SimpleDateFormat(FORMATER);
-        Date date = new Date();
-        XMLGregorianCalendar gDateFormatted1 =
-            DatatypeFactory.newInstance().newXMLGregorianCalendar(format.format(date));
 		pagoProgramado.setDocumento("80073603");
 		pagoProgramado.setEmpresa("ETB");
 		pagoProgramado.setEstado("Inscrita");
-		pagoProgramado.setFechaProgramacion(gDateFormatted1);
+		pagoProgramado.setFechaProgramacion("2017-11-20");
 		pagoProgramado.setIdPago(1);
 		pagoProgramado.setNalInternal(0);
 		pagoProgramado.setNumeroCuenta("2323322323");

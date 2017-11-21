@@ -1,9 +1,6 @@
 package co.edu.javeriana.posa.objects;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 
 public class PagoProgramado {
 
@@ -11,7 +8,7 @@ public class PagoProgramado {
     private String tipoServicio;
     private String empresa;
     private String numeroFactura;
-    private XMLGregorianCalendar fechaProgramacion;
+    private String fechaProgramacion;
     private int tipoCuenta;
     private String numeroCuenta;
     private int tipoDocumento;
@@ -44,10 +41,10 @@ public class PagoProgramado {
 	public void setNumeroFactura(String numeroFactura) {
 		this.numeroFactura = numeroFactura;
 	}
-	public XMLGregorianCalendar getFechaProgramacion() {
+	public String getFechaProgramacion() {
 		return fechaProgramacion;
 	}
-	public void setFechaProgramacion(XMLGregorianCalendar fechaProgramacion) {
+	public void setFechaProgramacion(String fechaProgramacion) {
 		this.fechaProgramacion = fechaProgramacion;
 	}
 	public int getTipoCuenta() {
