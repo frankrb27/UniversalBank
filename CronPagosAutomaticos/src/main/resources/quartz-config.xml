@@ -19,7 +19,7 @@
 				<job-name>JobA</job-name>
 				<job-group>GroupDummy</job-group>
 				<!-- It will run every 10 seconds -->
-				<cron-expression>0/10 * * * * ?</cron-expression>
+				<cron-expression>0 0/5 * * * ?</cron-expression>
 			</cron>
 		</trigger>
 	</schedule>
