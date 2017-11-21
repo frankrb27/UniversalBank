@@ -51,4 +51,21 @@ public interface WsPagosProgramadosSoap {
         @WebParam(name = "reqPago", targetNamespace = "http://tempuri.org/")
         PagosProgramadosBE reqPago);
 
+    /**
+     * 
+     * @param reqCuenta
+     * @param pagoPrestamo
+     * @return
+     *     returns org.tempuri.ConfirmacionTransaccionBE
+     */
+    @WebMethod(operationName = "PagarPrestamos", action = "http://tempuri.org/PagarPrestamos")
+    @WebResult(name = "PagarPrestamosResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "PagarPrestamos", targetNamespace = "http://tempuri.org/", className = "org.tempuri.PagarPrestamos")
+    @ResponseWrapper(localName = "PagarPrestamosResponse", targetNamespace = "http://tempuri.org/", className = "org.tempuri.PagarPrestamosResponse")
+    public ConfirmacionTransaccionBE pagarPrestamos(
+        @WebParam(name = "pagoPrestamo", targetNamespace = "http://tempuri.org/")
+        PrestamosBE pagoPrestamo,
+        @WebParam(name = "reqCuenta", targetNamespace = "http://tempuri.org/")
+        CuentasBE reqCuenta);
+
 }

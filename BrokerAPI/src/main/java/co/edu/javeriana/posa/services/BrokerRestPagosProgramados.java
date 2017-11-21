@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -13,11 +12,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.log4j.Logger;
 import org.tempuri.ArrayOfPagosProgramadosBE;
+import org.tempuri.ConfirmacionTransaccionBE;
+import org.tempuri.CuentasBE;
 import org.tempuri.PagosProgramadosBE;
+import org.tempuri.PrestamosBE;
 import org.tempuri.RespuestaPagosProgramadosBE;
 import org.tempuri.WsPagosProgramados;
 
+import co.edu.javeriana.posa.objects.Cuenta;
 import co.edu.javeriana.posa.objects.PagoProgramado;
+import co.edu.javeriana.posa.objects.Prestamo;
 
 public class BrokerRestPagosProgramados {
 
@@ -121,6 +125,36 @@ public class BrokerRestPagosProgramados {
 			}
 			logger.info(_CLASS+"[FIN]");
 			return listCuenta;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param prestamo
+	 * @return
+	 * @throws Exception
+	 */
+	public String pagarPrestamos(Prestamo prestamo, Cuenta cuenta) throws Exception{
+		final String _METHOD = "[pagarPrestamos]";
+		try{
+			logger.info(_CLASS+"[INI]"+_METHOD+prestamo.toString());
+			PrestamosBE reqPagoProg= new PrestamosBE();
+			CuentasBE reqCuenta = new CuentasBE();
+			
+			reqPagoProg.setNumeroPrestamo(prestamo.getNumeroPrestamo());
+			reqPagoProg.setValorPagado(prestamo.getValorPagado());
+			reqCuenta.setNumeroCuenta(cuenta.getNumeroCuenta());
+			
+			WsPagosProgramados locator = new WsPagosProgramados();
+			ConfirmacionTransaccionBE confirmacion = locator.getWsPagosProgramadosSoap().pagarPrestamos(reqPagoProg, reqCuenta);
+			if(confirmacion.getRespuesta()!=1){
+				throw new Exception(confirmacion.getDescripcionRta());
+			}
+			logger.info(_CLASS+"[FIN]");
+			return confirmacion.getDescripcionRta();
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new Exception(e);

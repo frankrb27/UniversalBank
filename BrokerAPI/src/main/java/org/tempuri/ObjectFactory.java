@@ -30,27 +30,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ConsultarPrestamosResponse }
+     * Create an instance of {@link ConsultarPagosProgramadosResponse }
      * 
      */
-    public ConsultarPrestamosResponse createConsultarPrestamosResponse() {
-        return new ConsultarPrestamosResponse();
+    public ConsultarPagosProgramadosResponse createConsultarPagosProgramadosResponse() {
+        return new ConsultarPagosProgramadosResponse();
     }
 
     /**
-     * Create an instance of {@link ArrayOfPrestamosBE }
+     * Create an instance of {@link ArrayOfPagosProgramadosBE }
      * 
      */
-    public ArrayOfPrestamosBE createArrayOfPrestamosBE() {
-        return new ArrayOfPrestamosBE();
+    public ArrayOfPagosProgramadosBE createArrayOfPagosProgramadosBE() {
+        return new ArrayOfPagosProgramadosBE();
     }
 
     /**
-     * Create an instance of {@link ConsultarPrestamos }
+     * Create an instance of {@link ConsultarPagosProgramados }
      * 
      */
-    public ConsultarPrestamos createConsultarPrestamos() {
-        return new ConsultarPrestamos();
+    public ConsultarPagosProgramados createConsultarPagosProgramados() {
+        return new ConsultarPagosProgramados();
+    }
+
+    /**
+     * Create an instance of {@link PagosProgramadosBE }
+     * 
+     */
+    public PagosProgramadosBE createPagosProgramadosBE() {
+        return new PagosProgramadosBE();
+    }
+
+    /**
+     * Create an instance of {@link PagarPrestamos }
+     * 
+     */
+    public PagarPrestamos createPagarPrestamos() {
+        return new PagarPrestamos();
     }
 
     /**
@@ -59,6 +75,54 @@ public class ObjectFactory {
      */
     public PrestamosBE createPrestamosBE() {
         return new PrestamosBE();
+    }
+
+    /**
+     * Create an instance of {@link CuentasBE }
+     * 
+     */
+    public CuentasBE createCuentasBE() {
+        return new CuentasBE();
+    }
+
+    /**
+     * Create an instance of {@link RegistrarPagoProgramadoResponse }
+     * 
+     */
+    public RegistrarPagoProgramadoResponse createRegistrarPagoProgramadoResponse() {
+        return new RegistrarPagoProgramadoResponse();
+    }
+
+    /**
+     * Create an instance of {@link RespuestaPagosProgramadosBE }
+     * 
+     */
+    public RespuestaPagosProgramadosBE createRespuestaPagosProgramadosBE() {
+        return new RespuestaPagosProgramadosBE();
+    }
+
+    /**
+     * Create an instance of {@link PagarPrestamosResponse }
+     * 
+     */
+    public PagarPrestamosResponse createPagarPrestamosResponse() {
+        return new PagarPrestamosResponse();
+    }
+
+    /**
+     * Create an instance of {@link ConfirmacionTransaccionBE }
+     * 
+     */
+    public ConfirmacionTransaccionBE createConfirmacionTransaccionBE() {
+        return new ConfirmacionTransaccionBE();
+    }
+
+    /**
+     * Create an instance of {@link RegistrarPagoProgramado }
+     * 
+     */
+    public RegistrarPagoProgramado createRegistrarPagoProgramado() {
+        return new RegistrarPagoProgramado();
     }
 
 }

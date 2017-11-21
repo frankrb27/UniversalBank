@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="TipoDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="Documento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="DeudaPrestamo" type="{http://www.w3.org/2001/XMLSchema}decimal"/>
+ *         &lt;element name="ValorPagado" type="{http://www.w3.org/2001/XMLSchema}decimal"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.XmlType;
     "numeroPrestamo",
     "tipoDocumento",
     "documento",
-    "deudaPrestamo"
+    "deudaPrestamo",
+    "valorPagado"
 })
 public class PrestamosBE {
 
@@ -51,6 +53,8 @@ public class PrestamosBE {
     protected String documento;
     @XmlElement(name = "DeudaPrestamo", required = true)
     protected BigDecimal deudaPrestamo;
+    @XmlElement(name = "ValorPagado", required = true)
+    protected BigDecimal valorPagado;
 
     /**
      * Obtiene el valor de la propiedad idPrestamo.
@@ -154,6 +158,30 @@ public class PrestamosBE {
      */
     public void setDeudaPrestamo(BigDecimal value) {
         this.deudaPrestamo = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad valorPagado.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public BigDecimal getValorPagado() {
+        return valorPagado;
+    }
+
+    /**
+     * Define el valor de la propiedad valorPagado.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigDecimal }
+     *     
+     */
+    public void setValorPagado(BigDecimal value) {
+        this.valorPagado = value;
     }
 
 }
